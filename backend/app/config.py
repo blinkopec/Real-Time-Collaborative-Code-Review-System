@@ -32,7 +32,7 @@ class Settings(BaseSettings):
     def _validate_prod(self) -> "Settings":
         if self.ENV == Env.PROD:
             key = self.SECRET_KEY.get_secret_value()
-            if key.startswith("dev-") or key.startswith("replace-"):
+            if key.startswith(("dev-", "replace-")):
                 raise ValueError(
                     "SECRET_KEY must be a real random value in production"
                 )
