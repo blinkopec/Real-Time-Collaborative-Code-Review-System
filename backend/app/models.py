@@ -12,7 +12,6 @@ def utcnow() -> datetime:
 
 class User(Base):
     __tablename__ = "users"
-    __table_args__ = {"extend_existing": True}
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     email: Mapped[str] = mapped_column(String(255), unique=True, index=True)
@@ -32,7 +31,6 @@ class User(Base):
 
 class Snippet(Base):
     __tablename__ = "snippets"
-    __table_args__ = {"extend_existing": True}
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     title: Mapped[str] = mapped_column(String(255))
@@ -51,7 +49,6 @@ class Snippet(Base):
 
 class Comment(Base):
     __tablename__ = "comments"
-    __table_args__ = {"extend_existing": True}
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     snippet_id: Mapped[int] = mapped_column(
