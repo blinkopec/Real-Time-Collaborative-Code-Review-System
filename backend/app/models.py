@@ -12,6 +12,7 @@ def utcnow() -> datetime:
 
 class User(Base):
     __tablename__ = "users"
+    __table_args__ = {"extend_existing": True}
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     email: Mapped[str] = mapped_column(String(255), unique=True, index=True)
@@ -30,13 +31,14 @@ class User(Base):
 
 
 class Snippet(Base):
-    __tablename__ = "comments"
+    __tablename__ = "snippets"
+    __table_args__ = {"extend_existing": True}
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     title: Mapped[str] = mapped_column(String(255))
     language: Mapped[str] = mapped_column(String(32), default="python")
     code: Mapped[str] = mapped_column(Text)
-    author_id: Mapped[int] = mapped_column(ForeignKey("user.id", ondelete="CASCADE"))
+    author_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"))
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), default=utcnow
     )
@@ -49,12 +51,13 @@ class Snippet(Base):
 
 class Comment(Base):
     __tablename__ = "comments"
+    __table_args__ = {"extend_existing": True}
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     snippet_id: Mapped[int] = mapped_column(
         ForeignKey("snippets.id", ondelete="CASCADE")
     )
-    author_id: Mapped[int] = mapped_column(ForeignKey("userid", ondelete="CASCADE"))
+    author_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"))
     line_number: Mapped[int] = mapped_column(Integer)
     body: Mapped[str] = mapped_column(Text)
     created_at: Mapped[datetime] = mapped_column(
