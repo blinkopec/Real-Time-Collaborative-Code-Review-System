@@ -5,13 +5,13 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database import get_db
 from app.models import User
-from app.schemas import Token, UserCreate
+from app.schemas import Token, UserCreate, UserOut
 from app.securty import create_access_token, hash_password, verify_password
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 
 
-@router.post("/register", response_model=Token)
+@router.post("/register", response_model=UserOut, status_code=201)
 async def register(payload: UserCreate, db: AsyncSession = Depends(get_db)):
     exists = await db.scalar(
         select(User).where(
@@ -38,7 +38,7 @@ async def register(payload: UserCreate, db: AsyncSession = Depends(get_db)):
 
 @router.post("/login", response_model=Token)
 async def login(
-    form: OAuth2PasswordRequestForm,
+    form: OAuth2PasswordRequestForm = Depends(),
     db: AsyncSession = Depends(get_db),
 ):
     user = await db.scalar(select(User).where(User.email == form.username))
