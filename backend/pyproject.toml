@@ -32,3 +32,6 @@ build-backend = "uv_build"
 dev = [
     "ruff>=0.17.3",
 ]
+
+[tool.ruff]
+ignore = ["B008"]
