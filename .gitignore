@@ -11,7 +11,7 @@ wheels/
 .env
 .env
 .env.*
-!.env.example
+
 
 # Logs
 logs
@@ -37,6 +37,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-.env
-.env.*
-!.env.example
