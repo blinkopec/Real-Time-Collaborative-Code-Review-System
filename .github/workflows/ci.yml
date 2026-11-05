@@ -36,3 +36,7 @@ jobs:
       run: |
         cd backend
         uv run python -m compileall app
+
+    - name: Run tests
+      working-directory: ./backend
+      run: uv run pytest -v
