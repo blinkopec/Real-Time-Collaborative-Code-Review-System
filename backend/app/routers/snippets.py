@@ -6,6 +6,7 @@ from app.database import get_db
 from app.deps import get_current_user
 from app.models import Comment, Snippet, User
 from app.schemas import CommentCreate, CommentOut, SnippetCreate, SnippetOut
+from app.ws_manager import manager
 
 router = APIRouter(prefix="/api/snippets", tags=["snippets"])
 
@@ -40,7 +41,6 @@ async def create_snippet(
 @router.get("/{snippet_id}/comments", response_model=list[CommentOut])
 async def list_comments(
     snippet_id: int,
-    payload: CommentCreate,
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
@@ -82,4 +82,11 @@ async def create_comment(
     db.add(comment)
     await db.commit()
     await db.refresh(comment)
+    await manager.broadcast(
+        snippet_id,
+        {
+            "type": "comment.created",
+            "data": CommentOut.model_validate(comment).model_dump(mode="json"),
+        },
+    )
     return comment

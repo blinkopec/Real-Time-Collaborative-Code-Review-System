@@ -12,7 +12,7 @@ class ConnectionManager:
         await ws.accept()
         self.rooms[room_id].add(ws)
 
-    async def disconnect(self, room_id: int, ws: WebSocket):
+    def disconnect(self, room_id: int, ws: WebSocket):
         self.rooms[room_id].discard(ws)
         if not self.rooms[room_id]:
             self.rooms.pop(room_id, None)
