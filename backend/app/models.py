@@ -43,7 +43,7 @@ class Snippet(Base):
 
     author: Mapped["User"] = relationship(back_populates="snippets")
     comments: Mapped[list["Comment"]] = relationship(
-        back_populates="comments", cascade="all, delete-orphan"
+        back_populates="snippet", cascade="all, delete-orphan"
     )
 
 

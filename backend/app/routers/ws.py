@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Query, WebSocket, WebSocketDisconnect
 
-from app.securty import decode_access_token
+from app.security import decode_access_token
 from app.ws_manager import manager
 
 router = APIRouter(tags=["ws"])
