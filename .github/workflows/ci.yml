@@ -37,6 +37,15 @@ jobs:
         cd backend
         uv run python -m compileall app
 
+    - name: Create test .env
+      working-directory: ./backend
+      run: |
+        echo "ENV=local" > .env
+        echo "DATABASE_URL=postgresql+asyncpg://test:test@localhost:5432/test" >> .env
+        echo "SECRET_KEY=test-secret-key-for-ci-only" >> .env
+        echo "ACCESS_TOKEN_EXPIRE_MINUTES=1440" >> .env
+        echo "CORS_ORIGINS=http://localhost:5173" >> .env
+        
     - name: Run tests
       working-directory: ./backend
       run: uv run pytest -v
