@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { fetchMe, type User } from "./api";
+import { fetchMe, type User } from "./assets/api";
 
 type AuthState = {
   user: User | null;
