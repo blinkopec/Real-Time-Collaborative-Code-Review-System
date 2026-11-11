@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Snippets from "./pages/Snippets";
 
 export default function App() {
   const loadUser = useAuth((state) => state.loadUser);
@@ -21,9 +22,7 @@ export default function App() {
           path="/snippets"
           element={
             <ProtectedRoute>
-              <div className="flex items-center justify-center min-h-screen">
-                <h1 className="text-3xl font-bold">Сниппеты скоро появятся!</h1>
-              </div>
+              <Snippets />
             </ProtectedRoute>
           }
         />
