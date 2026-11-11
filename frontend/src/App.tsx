@@ -3,6 +3,7 @@ import { useAuth } from "./store";
 import { useEffect } from "react";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 export default function App() {
   const loadUser = useAuth((state) => state.loadUser);
@@ -15,7 +16,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
-
+        <Route path="/register" element={<Register />} />
         <Route
           path="/snippets"
           element={
